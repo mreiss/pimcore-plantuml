@@ -1,7 +1,7 @@
 # PlantUML class diagram generation based on pimcore class definition
 
 ## Requirements
-* Pimcore >= 10
+* Pimcore >= 11
 
 ## Introduction
 This bundle lets you create UML class diagrams based on the class definition as defined in your project.

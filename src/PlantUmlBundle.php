@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace PlantUmlBundle;
 
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
+use Pimcore\Extension\Bundle\PimcoreBundleAdminClassicInterface;
+use Pimcore\Extension\Bundle\Traits\BundleAdminClassicTrait;
 use Pimcore\Extension\Bundle\Traits\PackageVersionTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class PlantUmlBundle extends AbstractPimcoreBundle
+class PlantUmlBundle extends AbstractPimcoreBundle implements PimcoreBundleAdminClassicInterface
 {
     use PackageVersionTrait;
+    use BundleAdminClassicTrait;
 
     /**
      * @var string
@@ -30,7 +33,7 @@ class PlantUmlBundle extends AbstractPimcoreBundle
     /**
      * @return string[]
      */
-    public function getCssPaths()
+    public function getCssPaths(): array
     {
         return [
             '/bundles/plantuml/css/plugin.css',
@@ -40,7 +43,7 @@ class PlantUmlBundle extends AbstractPimcoreBundle
     /**
      * @return string[]
      */
-    public function getJsPaths()
+    public function getJsPaths(): array
     {
         return [
             '/bundles/plantuml/js/plugin.js',

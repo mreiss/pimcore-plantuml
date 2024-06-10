@@ -30,7 +30,7 @@ PlantUml = Class.create(function() {
                         url: 'plantuml/config_list',
                         reader: {
                             type: 'json',
-                            root: 'config'
+                            rootProperty: 'config'
                         }
                     },
                     autoLoad: true,

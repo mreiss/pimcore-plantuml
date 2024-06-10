@@ -2,16 +2,14 @@ pimcore.registerNS('pimcore.plugin.PlantUml');
 pimcore.registerNS('PlantUml');
 pimcore.registerNS('PlantUml.Config');
 
-pimcore.plugin.PlantUml = Class.create(pimcore.plugin.admin, {
-
-    config : {},
+pimcore.plugin.PlantUml = Class.create({
 
     getClassName: function () {
         return 'pimcore.plugin.PlantUml';
     },
 
     initialize: function() {
-        pimcore.plugin.broker.registerPlugin(this);
+        document.addEventListener(pimcore.events.pimcoreReady, this.pimcoreReady.bind(this));
     },
 
     uninstall: function() {

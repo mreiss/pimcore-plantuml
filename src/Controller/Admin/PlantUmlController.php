@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PlantUmlBundle\Controller\Admin;
 
-use Pimcore\Bundle\AdminBundle\Controller\AdminController;
+use Pimcore\Bundle\AdminBundle\Controller\AdminAbstractController;
 use PlantUmlBundle\Model\ConfigInterface;
 use PlantUmlBundle\Model\ModelInterface;
 use PlantUmlBundle\Service\ConfigurationServiceInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use function Jawira\PlantUml\encodep;
 
-class PlantUmlController extends AdminController
+class PlantUmlController extends AdminAbstractController
 {
     /**
      * @return JsonResponse
