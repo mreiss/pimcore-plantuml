@@ -20,7 +20,7 @@ class SelectGenerator extends AbstractListGenerator implements GeneratorInterfac
         $field = $this->generateField($namespace);
         $field->setHasValues(true);
 
-        foreach ($this->definition->getOptions() as $option) {
+        foreach ($this->definition->getOptions() ?? [] as $option) {
             $field->addValue($option['key'], (string) $option['value']);
         }
     }

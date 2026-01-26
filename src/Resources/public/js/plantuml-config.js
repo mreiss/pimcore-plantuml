@@ -304,6 +304,18 @@ PlantUml.Config = Class.create({
                     }.bind(this)
                 },
                 {
+                    type: 'button',
+                    text: 'Set All to Skip',
+                    iconCls: 'pimcore_icon_edit',
+                    handler: function() {
+                        this.classTreeStore.getRootNode().cascadeBy(function(node) {
+                            if (!node.isRoot()) {
+                                node.set('mode', 'skip');
+                            }
+                        });
+                    }.bind(this)
+                },
+                {
                     xtype: 'tbfill'
                 },
                 {
