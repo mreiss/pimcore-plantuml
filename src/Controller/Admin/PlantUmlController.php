@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PlantUmlBundle\Controller\Admin;
 
+use App\Service\Puml\Generate\GenerateServiceSubscriber;
 use Pimcore\Bundle\AdminBundle\Controller\AdminAbstractController;
 use PlantUmlBundle\Model\ConfigInterface;
 use PlantUmlBundle\Model\ModelInterface;
 use PlantUmlBundle\Service\ConfigurationServiceInterface;
 use PlantUmlBundle\Service\GeneratorServiceInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +26,8 @@ class PlantUmlController extends AdminAbstractController
     public function generateAction(
         Request $request,
         GeneratorServiceInterface $generatorService,
-        ConfigurationServiceInterface $configurationService
+        ConfigurationServiceInterface $configurationService,
+        GenerateServiceSubscriber $generateServiceSubscriber,
     ) {
         $success = true;
         $message = null;
@@ -35,7 +38,15 @@ class PlantUmlController extends AdminAbstractController
             $this->checkAdminUser();
             $name = $request->get('name', '');
             $config = $configurationService->getConfig($name);
-            $puml = $generatorService->generate($config, $name);
+
+            if (preg_match('#^@(.+)$#', $config->getTitle(), $matches)) {
+                if (!$generateService = $generateServiceSubscriber->get($matches[1])) {
+                    throw new \Exception('Title service not found: ' . $matches[1]);
+                }
+                $generateService->generate($generatorService, $config);
+            } else {
+                $puml = $generatorService->generate($config, $name);
+            }
         } catch (\Exception $e) {
             $success = false;
             $message = $e->getMessage();
